@@ -27,3 +27,7 @@ code {
 ul {
   list-style-type: '➡ ';
 }
+
+blockquote {
+  @apply text-gray-600 mt-8 border-l-2 pl-4;
+}
