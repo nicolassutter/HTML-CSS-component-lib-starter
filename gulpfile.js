@@ -5,6 +5,10 @@ const postcss = require('gulp-postcss')
 const cleanCSS = require('gulp-clean-css')
 const css_path = './assets/css/**/*.scss'
 const build = require('./build.js')
+const bs = require('browser-sync')
+const config = require('./config/config.js')
+
+const sync = bs.create()
 
 const process_css = () => {
   return build().then(() => {
@@ -25,13 +29,22 @@ const process_css = () => {
   
     return task
       .pipe(gulp.dest('./dist/css'))
+      .pipe(sync.stream())
   })
 }
 
-const watch_css = () => {
-  process_css()
-  gulp.watch(css_path, process_css)
+const dev = () => {
+  sync.init({ proxy: `http://localhost:${config.port}` })
+
+  process_css().then(() => {
+    gulp.watch(css_path, process_css)
+
+    gulp.watch([
+      'components/**/*.ejs',
+      'index.ejs',
+    ]).on('change', sync.reload)
+  })
 }
 
 exports.process_css = process_css
-exports.watch_css = watch_css
+exports.dev = dev

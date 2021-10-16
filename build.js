@@ -73,20 +73,24 @@ const delete_file = (path) => {
 }
 
 const render_files = async () => {
-  const files = await get_all_files()
-  const history = []
+  if (process.env.NODE_ENV === 'production') {
+    const files = await get_all_files()
+    const history = []
 
-  for await (const file of files) {
-    const [path] = file.split('.')
-    const newName = path + '.html'
+    for await (const file of files) {
+      const [path] = file.split('.')
+      const newName = path + '.html'
 
-    const render = await get_html(file)
-    await write_file(newName, render)
-    await delete_file(file)
-    history.push(file)
+      const render = await get_html(file)
+      await write_file(newName, render)
+      await delete_file(file)
+      history.push(file)
+    }
+
+    return history
   }
 
-  return history
+  return 'No need to render'
 }
 
 /**

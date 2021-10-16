@@ -1,10 +1,13 @@
+import type Config from './config/types'
 import express from 'express'
 import path from 'path'
 import fs from 'fs'
 import ejs from 'ejs'
 
+const config: Config = require('./config/config.js')
+
 const app = express()
-const port = 4001
+const port = config.port
 
 app.set('components', path.join(__dirname, 'components'))
 app.set('view engine', 'ejs')
@@ -22,13 +25,14 @@ app.listen(port, () => {
 interface TemplateOptions {
   component: string | null
   path: string | null
-  styles: string | null
+  styles: string | null,
+  root: string
 }
 
 app.get('*', (req, res) => {
   const find = '/components/'
 
-  const options: TemplateOptions = { component: null, path: null, styles: null }
+  const options: TemplateOptions = { component: null, path: null, styles: null, root: `http://localhost:${port}` }
 
   if (req.url.startsWith(find)) {
     const [, comp] = req.url.split(find)
@@ -44,7 +48,7 @@ app.get('*', (req, res) => {
     
     if (comp_exists && styles_exist) {
       options.component = component
-      options.styles = styles
+      options.styles = `${options.root}/css${find + comp}.css`
     }
 
     options.path = component

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"nodemon index.ts\" \"gulp watch_css\"",
+    "dev": "concurrently \"nodemon index.ts \" \"gulp dev\"",
     "build": "cross-env NODE_ENV=production gulp process_css"
   },
   "keywords": [],
@@ -17,11 +17,13 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "@types/browser-sync": "^2.26.2",
     "@types/ejs": "^3.1.0",
     "@types/express": "^4.17.13",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^16.11.0",
     "autoprefixer": "^10.3.7",
+    "browser-sync": "^2.27.5",
     "concurrently": "^6.3.0",
     "cross-env": "^7.0.3",
     "fs-extra": "^10.0.0",
