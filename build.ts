@@ -3,6 +3,7 @@ import config from './config/config'
 import beautify from 'js-beautify'
 import ejs from 'ejs'
 import recursive from 'recursive-readdir'
+import chalk from 'chalk'
 
 const promises = fs.promises
 const beautify_html = beautify.html
@@ -105,6 +106,7 @@ const build = () => {
     .then(() => render_files())
     .then((files: Files) => write_files(files))
     .then(() => 'done')
+    .catch(() => console.log(chalk.red.bold('Une erreur de build est survenue')))
 }
 
 build()
