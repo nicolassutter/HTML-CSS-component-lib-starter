@@ -6,6 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"nodemon index.ts \" \"ts-node sync.ts\" \"rollup -cw\"",
+    "lint": "eslint",
+    "lint-fix": "eslint --fix",
     "build": "cross-env NODE_ENV=production rollup -c && ts-node build.ts"
   },
   "keywords": [],
@@ -24,10 +26,13 @@
     "@types/js-beautify": "^1.13.3",
     "@types/node": "^16.11.0",
     "@types/recursive-readdir": "^2.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
     "autoprefixer": "^10.3.7",
     "browser-sync": "^2.27.5",
     "concurrently": "^6.3.0",
     "cross-env": "^7.0.3",
+    "eslint": "^8.0.1",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
     "gulp-postcss": "^9.0.1",
