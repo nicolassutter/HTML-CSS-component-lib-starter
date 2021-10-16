@@ -48,8 +48,6 @@ app.get('*', (req, res) => {
       options.component = component
     }
 
-    console.log(options.root)
-
     options.path = component
   }
 
