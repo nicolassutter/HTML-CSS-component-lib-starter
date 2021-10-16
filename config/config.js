@@ -1,3 +1,9 @@
 module.exports = {
-  port: 5000
+  port: 5500,
+
+  html: {
+    indent_size: 2,
+    editorconfig: true,
+    indent_inner_html: true
+  }
 }

@@ -26,16 +26,18 @@ interface TemplateOptions {
   component: string | null
   path: string | null
   styles: string | null,
-  root: string
+  root: string,
+  url: string
 }
 
 app.get('*', (req, res) => {
   const find = '/components/'
+  const { url } = req
 
-  const options: TemplateOptions = { component: null, path: null, styles: null, root: `http://localhost:${port}` }
+  const options: TemplateOptions = { component: null, path: null, styles: null, root: `http://localhost:${port}`, url }
 
-  if (req.url.startsWith(find)) {
-    const [, comp] = req.url.split(find)
+  if (url.startsWith(find)) {
+    const [, comp] = url.split(find)
 
     /** Devient ./components/xxx.ejs */
     const component = `.${find + comp}.ejs`

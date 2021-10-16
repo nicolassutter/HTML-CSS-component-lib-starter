@@ -2,8 +2,10 @@
 const arr = ['Hello', 'World']
 %>
 
-<% arr.map((item, index) => { %>
-  <p class="test test-<%= index %>">
-    <%= item %>
-  </p>
-<% }) %>
+<div>
+  <% arr.map((item, index) => { %>
+    <p class="test test-<%= index %>">
+      <%= item %>
+    </p>
+  <% }) %>
+</div>
