@@ -1,3 +1,31 @@
-.test {
-  @apply text-purple-500;
+@import "./_tailwind.scss";
+
+.main {
+  @apply min-h-screen flex flex-col justify-center max-w-lg mx-auto;
+}
+
+.h1-like {
+  @apply text-5xl font-bold my-5;
+}
+
+.h2-like {
+  @apply text-3xl font-bold my-5;
+}
+
+.text {
+  @apply text-lg text-gray-800 leading-relaxed;
+}
+
+li {
+  @apply ml-7;
+}
+
+li code { @apply inline; }
+
+code {
+  @apply bg-gray-100 rounded py-1 px-2 text-base block;
+}
+
+ul {
+  list-style-type: '➡ ';
 }

@@ -1,5 +1,8 @@
 module.exports = {
-  purge: [],
+  purge: [
+    './components/**/*.ejs',
+    'index.ejs'
+  ],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
