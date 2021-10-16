@@ -15,7 +15,7 @@ Les composants sont écris avec EJS dans le dossier `components`
 
 Ex: `components/button.ejs`
 
-Les parties de composants peuvent être placées dans `components/parts`, elle serviront principalement pour faires des `<%- include'parts/header.ejs') %>`.
+Les parties de composants peuvent être placées dans `components/parts`, elle serviront principalement pour faires des `<%- include('parts/header.ejs') %>`.
 
 ## Styles globaux et styles de composants
 
