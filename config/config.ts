@@ -1,5 +1,5 @@
 export default {
-  port: 5500,
+  port: 8081,
 
   html: {
     indent_size: 2,
