@@ -1,5 +1,7 @@
 const _fs = require('fs-extra')
 const fs = require('fs')
+const promises = fs.promises
+
 const ejs = require('ejs')
 const recursive = require("recursive-readdir")
 
@@ -26,51 +28,24 @@ const copy = () => {
   })
 }
 
-const create_dir = () => {
-  return new Promise((resolve, reject) => {
-    fs.mkdir('dist', (err) => {
-      if (err){
-        reject(err)
-      }
-  
-      resolve('created')
-    })
-  })
-}
-
-const get_html = (path) => {
-  return ejs.renderFile(path)
-}
-
+/**
+ * @returns {Promise.<string[]>}
+ */
 const get_all_files = () => {
   return new Promise((resolve, reject) => {
     recursive('./dist/components', (err, files) => {
-      if (err) reject(err)
-  
+      if (err) return reject(err)
+      
       resolve(files)
     })
   })
 }
 
-const write_file = (file, content) => {
-  return new Promise((resolve, reject) => {
-    fs.writeFile(file, content, (err) => {
-      if (err) reject(err)
-      
-      resolve()
-    })
-  })
-}
-
-const delete_file = (path) => {
-  return new Promise((resolve, reject) => {
-    fs.unlink(path, (err) => {
-      if (err) reject(err)
-      
-      resolve()
-    })
-  })
-}
+const create_dir = () => promises.mkdir('dist')
+const remove_dir = () => promises.rmdir('dist', { recursive: true })
+const get_html = (path) => ejs.renderFile(path)
+const write_file = (file, content) => promises.writeFile(file, content)
+const delete_file = (path) => promises.unlink(path)
 
 const render_files = async () => {
   if (process.env.NODE_ENV === 'production') {
@@ -97,12 +72,9 @@ const render_files = async () => {
  * Removes the dist folder, creates it again, then copies the files
  */
 module.exports = () => {
-  return new Promise((resolve, reject) => {
-    fs.rmdir('dist', { recursive: true } , (err) => {
-      create_dir()
-        .then(() => copy())
-        .then(() => render_files())
-        .then(() => resolve('done'))
-    })
-  })
+  return remove_dir()
+    .then(() => create_dir())
+    .then(() => copy())
+    .then(() => render_files())
+    .then(() => 'done')
 }
