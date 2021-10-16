@@ -1,19 +1,15 @@
-const fs = require('fs')
+import fs from 'fs'
+import config from './config/config'
+import beautify from 'js-beautify'
+import ejs from 'ejs'
+import recursive from 'recursive-readdir'
+
 const promises = fs.promises
-
-const config = require('./config/config')
-
-const beautify_html = require('js-beautify').html
-
-const ejs = require('ejs')
-const recursive = require("recursive-readdir")
+const beautify_html = beautify.html
 
 const destination = './dist/components'
 
-/**
- * @returns {Promise.<string[]>}
- */
-const get_all_files = (path) => {
+const get_all_files = (path: string): Promise<string[]> => {
   return new Promise((resolve, reject) => {
     recursive(path || destination, (err, files) => {
       if (err) return reject(err)
@@ -27,19 +23,18 @@ const get_all_files = (path) => {
  * Créé le dossier dist et dist/components
  */
 const create_dir = async () => {
-  await promises.mkdir('dist')
   return promises.mkdir(destination)
 }
 
 /**
  * Supprimme le dossier dist
  */
-const remove_dir = () => promises.rmdir('dist', { recursive: true })
+const remove_dir = () => promises.rmdir('dist/components', { recursive: true })
 
 /**
  * Récupère le HTML depuis ejs, non beautify
  */
-const get_html = (path) => ejs.renderFile(path, { rmWhitespace: true })
+const get_html = (path: string) => ejs.renderFile(path, { rmWhitespace: true })
 
 /**
  * Écrit le fichier spécifié avec le contenu donné
@@ -47,7 +42,7 @@ const get_html = (path) => ejs.renderFile(path, { rmWhitespace: true })
  * @param {String} file - Chemin vers le fichier
  * @param {String} content - Contenu du fichier
  */
-const write_file = (file, content) => promises.writeFile(file, content)
+const write_file = (file: string, content: string) => promises.writeFile(file, content)
 
 /**
  * Génère tout le contenu HTML de chaque composant
@@ -76,31 +71,33 @@ const render_files = async () => {
   return files
 }
 
+type Files = { path: string, content: string }[]
+
 /**
  * Va écrire tous les fichiers .html à générer
- * @param {Array.<{ path: string, content: string }>} files - Tableau d'objets contenant le chemin d'écriture + le contenu
+ * @param files - Tableau d'objets contenant le chemin d'écriture + le contenu
  */
-const write_files = async (files) => {
-  if (process.env.NODE_ENV === 'production') {
-    for await (const file of files) {
-      const { path, content } = file
+const write_files = async (files: Files) => {
+  for await (const file of files) {
+    const { path, content } = file
 
-      await write_file(path, content)
-    }
-
-    return 'done'
+    await write_file(path, content)
   }
 
-  return 'No need to write'
+  return 'done'
 }
 
 /**
  * Removes the dist folder, gets the content, writes the files, done.
  */
-module.exports = () => {
+const build = () => {
   return remove_dir()
     .then(() => create_dir())
     .then(() => render_files())
-    .then((files) => write_files(files))
+    .then((files: Files) => write_files(files))
     .then(() => 'done')
 }
+
+build()
+
+export default build

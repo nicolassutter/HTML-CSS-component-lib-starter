@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   port: 5500,
 
   html: {

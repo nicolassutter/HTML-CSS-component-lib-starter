@@ -13,6 +13,5 @@
   },
   "include": [
       "**/*"
-  ],
-  "exclude": ["./build.js"]
+  ]
 }
