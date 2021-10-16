@@ -1,4 +1,4 @@
-# HTML - CSS componenent lib starter
+# HTML - CSS component lib starter
 
 Ce starter de projet permet de développer des librairies de composants HTML / CSS statiques.
 
