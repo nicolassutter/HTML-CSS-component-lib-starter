@@ -12,8 +12,10 @@ const destination = './dist/components'
 const get_all_files = (path: string): Promise<string[]> => {
   return new Promise((resolve, reject) => {
     recursive(path || destination, (err, files) => {
-      if (err) return reject(err)
-      
+      if (err) {
+        return reject(err)
+      }
+
       resolve(files)
     })
   })
@@ -28,8 +30,15 @@ const create_dir = async () => {
 
 /**
  * Supprimme le dossier dist
+ * On retourne toujours une promise
  */
-const remove_dir = () => promises.rmdir('dist/components', { recursive: true })
+const remove_dir = async () => {
+  const exists = fs.existsSync('dist/components')
+
+  if (exists) {
+    return promises.rm('dist/components', { recursive: true })
+  }
+}
 
 /**
  * Récupère le HTML depuis ejs, non beautify
@@ -38,7 +47,7 @@ const get_html = (path: string) => ejs.renderFile(path, { rmWhitespace: true })
 
 /**
  * Écrit le fichier spécifié avec le contenu donné
- * 
+ *
  * @param {String} file - Chemin vers le fichier
  * @param {String} content - Contenu du fichier
  */
