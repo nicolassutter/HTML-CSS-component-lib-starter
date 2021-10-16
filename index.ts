@@ -1,7 +1,10 @@
 import express from 'express'
 import path from 'path'
 import fs from 'fs'
+
+/* eslint-disable-next-line */
 import ejs from 'ejs'
+
 import config from './config/config'
 
 const app = express()
@@ -38,9 +41,9 @@ app.get('*', (req, res) => {
 
     /** Devient ./components/xxx.ejs */
     const component = `.${find + comp}.ejs`
-    
+
     const comp_exists = fs.existsSync(file(component))
-    
+
     if (comp_exists) {
       options.component = component
     }

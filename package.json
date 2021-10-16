@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint && npx stylelint \"**/*.scss\"",
+    "lint-fix": "eslint --fix && npx stylelint \"**/*.scss\" --fix",
     "dev": "concurrently \"nodemon index.ts \" \"ts-node sync.ts\" \"rollup -cw\"",
-    "lint": "eslint",
-    "lint-fix": "eslint --fix",
-    "build": "cross-env NODE_ENV=production rollup -c && ts-node build.ts"
+    "build": "cross-env NODE_ENV=production npm run lint && rollup -c && ts-node build.ts"
   },
   "keywords": [],
   "author": "",
@@ -46,6 +45,9 @@
     "rollup": "^2.58.0",
     "rollup-plugin-postcss": "^4.0.1",
     "rollup-plugin-scss": "^3.0.0",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0",
+    "stylelint-scss": "^3.21.0",
     "tailwindcss": "^2.2.17",
     "ts-node": "^10.3.0",
     "tsc": "^2.0.3",

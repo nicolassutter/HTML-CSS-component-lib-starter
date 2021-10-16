@@ -18,10 +18,12 @@ li {
   @apply ml-7;
 }
 
-li code { @apply inline; }
-
 code {
   @apply bg-gray-100 rounded py-1 px-2 text-base block;
+}
+
+li code {
+  @apply inline;
 }
 
 ul {
