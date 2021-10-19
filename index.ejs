@@ -15,7 +15,7 @@
     <% } else if (!component && url !== '/') { %>
       <p>Aucun composant ou styles de composant n'existe dans <%= path %></p>
     <% } else { %>
-      
+
       <!-- Supprimer ce contenu pour commencer à dev -->
 
       <h1 class="h1-like">Hello World ! 🌍</h1>
@@ -52,5 +52,7 @@
       </blockquote>
     <% } %>
   </main>
+
+  <script src="<%= root %>/output.js"></script>
 </body>
 </html>

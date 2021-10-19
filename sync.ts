@@ -7,6 +7,7 @@ sync.init({
   proxy: `http://localhost:${config.port}`,
   files: [
     '*.ejs',
-    './dist/output.css'
+    './dist/output.css',
+    './dist/output.js'
   ]
 })
