@@ -42,6 +42,7 @@
     "rollup": "^2.58.0",
     "rollup-plugin-postcss": "^4.0.1",
     "rollup-plugin-scss": "^3.0.0",
+    "set-value": "^4.0.1",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "stylelint-scss": "^3.21.0",
