@@ -7,7 +7,9 @@
     "lint": "eslint && npx stylelint \"**/*.scss\"",
     "lint-fix": "eslint --fix && npx stylelint \"**/*.scss\" --fix",
     "dev": "concurrently \"nodemon index.ts \" \"ts-node sync.ts\" \"rollup -cw\"",
-    "build": "cross-env NODE_ENV=production npm run lint && rollup -c && ts-node build.ts"
+    "rollup-build": "cross-env NODE_ENV=production rollup -c",
+    "components-build": "cross-env NODE_ENV=production ts-node build.ts",
+    "build": "cross-env NODE_ENV=production npm run lint && npm run rollup-build && npm run components-build"
   },
   "keywords": [],
   "author": "",
